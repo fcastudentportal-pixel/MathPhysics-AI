@@ -1,0 +1,26 @@
+
+{
+  "id": "/MathPhysics-AI/",
+  "name": "MathPhysics AI",
+  "short_name": "MathPhysics",
+  "description": "Scientific calculator, mathematics solver, physics learning tools and AI tutoring.",
+  "start_url": "/MathPhysics-AI/frontend/index.html",
+  "scope": "/MathPhysics-AI/frontend/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0b1020",
+  "background_color": "#0b1020",
+  "categories": ["education", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
