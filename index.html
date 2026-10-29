@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MathPhysics AI scientific calculator and learning assistant.">
+  <meta name="theme-color" content="#101827">
+  <title>MathPhysics AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjs@13.2.0/lib/browser/math.js"></script>
+  <script defer src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="MathPhysics AI home">
+      <span class="brand-mark">∑</span>
+      <span>MathPhysics <b>AI</b></span>
+    </a>
+    <span class="status"><span class="status-dot"></span> Learning lab</span>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">CALCULATE · UNDERSTAND · DISCOVER</p>
+      <h1>Science starts with a <span>question.</span></h1>
+      <p class="hero-copy">Calculate expressions, explore equations and prepare a question for your AI tutor.</p>
+    </section>
+
+    <nav class="tabs" aria-label="Tools">
+      <button class="tab active" data-panel="calculatorPanel" type="button">Calculator</button>
+      <button class="tab" data-panel="solverPanel" type="button">Equation solver</button>
+      <button class="tab" data-panel="tutorPanel" type="button">AI tutor</button>
+    </nav>
+
+    <section class="panel" id="calculatorPanel">
+      <div class="panel-heading">
+        <div><p class="eyebrow">SCIENTIFIC MODE</p><h2>Calculator</h2></div>
+        <label class="angle-control">Angle
+          <select id="angleMode" aria-label="Angle mode">
+            <option value="deg">Degrees</option>
+            <option value="rad">Radians</option>
+          </select>
+        </label>
+      </div>
+      <div class="calculator">
+        <div class="display">
+          <label for="expression">Expression</label>
+          <input id="expression" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. sin(30) + sqrt(16)" aria-describedby="calcHelp">
+          <div class="result-line"><span id="calcMessage" role="status">Ready to calculate</span><output id="calcResult">0</output></div>
+        </div>
+        <p id="calcHelp" class="hint">Use * for multiplication. In Degrees mode, sin(30) = 0.5.</p>
+        <div class="keypad" id="keypad">
+          <button class="key utility" data-action="clear">AC</button>
+          <button class="key utility" data-insert="(">(</button>
+          <button class="key utility" data-insert=")">)</button>
+          <button class="key utility" data-insert="^">xʸ</button>
+          <button class="key utility" data-insert="sqrt(">√</button>
+
+          <button class="key" data-insert="sin(">sin</button>
+          <button class="key" data-insert="cos(">cos</button>
+          <button class="key" data-insert="tan(">tan</button>
+          <button class="key" data-insert="log10(">log</button>
+          <button class="key" data-insert="log(">ln</button>
+
+          <button class="key" data-insert="7">7</button>
+          <button class="key" data-insert="8">8</button>
+          <button class="key" data-insert="9">9</button>
+          <button class="key operator" data-insert="/">÷</button>
+          <button class="key" data-insert="pi">π</button>
+
+          <button class="key" data-insert="4">4</button>
+          <button class="key" data-insert="5">5</button>
+          <button class="key" data-insert="6">6</button>
+          <button class="key operator" data-insert="*">×</button>
+          <button class="key" data-insert="e">e</button>
+
+          <button class="key" data-insert="1">1</button>
+          <button class="key" data-insert="2">2</button>
+          <button class="key" data-insert="3">3</button>
+          <button class="key operator" data-insert="-">−</button>
+          <button class="key" data-insert="%">%</button>
+
+          <button class="key" data-insert="0">0</button>
+          <button class="key" data-insert=".">.</button>
+          <button class="key" data-insert="ans">Ans</button>
+          <button class="key operator" data-insert="+">+</button>
+          <button class="key equals" data-action="calculate">=</button>
+        </div>
+        <div class="calc-actions">
+          <button class="button secondary" id="backspaceBtn" type="button">Delete last</button>
+          <button class="button secondary" id="clearHistoryBtn" type="button">Clear history</button>
+        </div>
+        <div class="history-wrap"><h3>Recent calculations</h3><ol id="historyList" class="history-list"><li class="empty">Your calculations will appear here.</li></ol></div>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="solverPanel">
+      <p class="eyebrow">SYMBOLIC MATHEMATICS</p>
+      <h2>Equation solver</h2>
+      <p class="section-copy">Enter an equation using <code>x</code> as the unknown. Example: <code>2*x^2 - 5*x - 3 = 0</code>.</p>
+      <form id="solverForm" class="stack">
+        <label for="equationInput">Equation</label>
+        <input id="equationInput" type="text" required maxlength="300" placeholder="2*x^2 - 5*x - 3 = 0">
+        <label for="variableInput">Unknown variable</label>
+        <input id="variableInput" type="text" value="x" required pattern="[a-zA-Z]" maxlength="1">
+        <button class="button primary" type="submit">Solve equation</button>
+      </form>
+      <div id="solverOutput" class="output-card" role="status">Your solution will appear here. The Python API must be deployed and configured for this tool.</div>
+    </section>
+
+    <section class="panel hidden" id="tutorPanel">
+      <p class="eyebrow">LEARN THE METHOD</p>
+      <h2>Ask the AI tutor</h2>
+      <p class="section-copy">Describe a mathematics or physics problem. The tutor can guide you through known values, formulas, units and steps when the backend AI is configured.</p>
+      <form id="tutorForm" class="stack">
+        <label for="tutorQuestion">Your question</label>
+        <textarea id="tutorQuestion" rows="5" required maxlength="5000" placeholder="A car accelerates from rest at 3 m/s² for 4 seconds. How far does it travel?"></textarea>
+        <label for="tutorStyle">How should the tutor help?</label>
+        <select id="tutorStyle">
+          <option value="guided">Ask me questions and guide me</option>
+          <option value="hint">Give me a hint first</option>
+          <option value="steps">Explain the steps</option>
+          <option value="check">Help me check my working</option>
+        </select>
+        <button class="button primary" type="submit">Ask tutor</button>
+      </form>
+      <div id="tutorOutput" class="output-card tutor-output" role="status">Your tutor conversation will appear here.</div>
+      <p class="disclaimer">AI explanations can contain mistakes. Check formulas, units and important results.</p>
+    </section>
+
+    <section class="feature-strip">
+      <div><span class="feature-icon">ƒx</span><div><b>Math tools</b><small>Expressions and equations</small></div></div>
+      <div><span class="feature-icon">↗</span><div><b>Physics ready</b><small>Formulas and units are next</small></div></div>
+      <div><span class="feature-icon">✦</span><div><b>AI learning</b><small>Guided explanations</small></div></div>
+    </section>
+  </main>
+  <footer><span>MathPhysics AI</span><span>Built for curiosity.</span></footer>
+</body>
+</html>
