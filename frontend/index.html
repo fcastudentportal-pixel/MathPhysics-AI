@@ -7,6 +7,12 @@
   <meta name="theme-color" content="#101827">
   <title>MathPhysics AI</title>
   <link rel="stylesheet" href="styles.css">
+  
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1020">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MathPhysics AI">
+
   <script defer src="https://cdn.jsdelivr.net/npm/mathjs@13.2.0/lib/browser/math.js"></script>
   <script defer src="config.js"></script>
   <script defer src="app.js"></script>
@@ -137,4 +143,16 @@
   </main>
   <footer><span>MathPhysics AI</span><span>Built for curiosity.</span></footer>
 </body>
+  
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("./sw.js")
+        .catch(function (error) {
+          console.error("Service worker registration failed:", error);
+        });
+    });
+  }
+</script>
+
 </html>
